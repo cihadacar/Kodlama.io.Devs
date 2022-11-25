@@ -1,10 +1,13 @@
 package kodlama.io.kodlamaiodevs.dataAccess.concretes;
 
+import com.sun.net.httpserver.Authenticator;
 import kodlama.io.kodlamaiodevs.dataAccess.abstracts.ProgrammingLanguageRepository;
 import kodlama.io.kodlamaiodevs.entities.ProgrammingLanguage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.concurrent.SuccessCallback;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,34 +24,36 @@ public class InMemoryProgrammingLanguageRepository implements ProgrammingLanguag
         programmingLanguageList.add(new ProgrammingLanguage(5, "Objective-C"));
     }
     @Override
-    public void add(ProgrammingLanguage programmingLanguageToAdd) throws Exception {
-        for (ProgrammingLanguage programmingLanguage :programmingLanguageList) {
-            if (programmingLanguageToAdd.getName() == programmingLanguage.getName())
+    public void add(ProgrammingLanguage programmingLanguage) throws Exception {
+        for (ProgrammingLanguage programmingLanguageToAdd :programmingLanguageList) {
+            if (programmingLanguageToAdd.getName().equalsIgnoreCase(programmingLanguage.getName()))
                 throw new Exception("Bu isimde bir programlama dili mevcut.");
+            else if (programmingLanguageToAdd.getId()==programmingLanguage.getId())
+                throw new Exception(MessageFormat.format("Bu index kullaniliyor. Siradaki index: {0}. ", programmingLanguageList.size()+1));
         }
-        programmingLanguageList.add(programmingLanguageToAdd);
+        programmingLanguageList.add(programmingLanguage);
     }
     @Override
     public void update(ProgrammingLanguage programmingLanguage) throws Exception{
         for (ProgrammingLanguage programmingLanguageToUpdate : programmingLanguageList) {
-            if (programmingLanguageToUpdate.getName() == programmingLanguage.getName())
+            if (programmingLanguageToUpdate.getName().equalsIgnoreCase(programmingLanguage.getName()))
                 throw new Exception("Bu isimde bir programlama dili mevcut.");
-        }
-        for (ProgrammingLanguage programmingLanguageToUpdate : programmingLanguageList) {
             if (programmingLanguageToUpdate.getId() == programmingLanguage.getId())
                 programmingLanguageToUpdate.setName(programmingLanguage.getName());
+            else
+                throw new Exception("Böyle bir kayıt bulunamadı.");
         }
     }
     @Override
-    public void delete(ProgrammingLanguage programmingLanguageToDelete) throws Exception{
-        for (ProgrammingLanguage programmingLanguage : programmingLanguageList) {
-            if (programmingLanguageToDelete.getId()==(programmingLanguage.getId())
-                    || programmingLanguageToDelete.getName().equals(programmingLanguage.getName()))
-                programmingLanguageList.remove(programmingLanguage);
-        }
-        for (ProgrammingLanguage programmingLanguage : programmingLanguageList) {
-            if (programmingLanguageToDelete.getId()==(programmingLanguage.getId())
-                    || programmingLanguageToDelete.getName().equals(programmingLanguage.getName()))
+    public void delete(ProgrammingLanguage programmingLanguage) throws Exception{
+        for (ProgrammingLanguage programmingLanguageToDelete : programmingLanguageList) {
+            if (programmingLanguage.getId()==programmingLanguageToDelete.getId() ||
+                    programmingLanguage.getName().equalsIgnoreCase(programmingLanguageToDelete.getName())){
+                programmingLanguageList.remove(programmingLanguageToDelete);
+                break;
+            }
+            if (programmingLanguageToDelete.getId()==programmingLanguageList.size() && (programmingLanguageToDelete.getId()!=(programmingLanguage.getId())
+                    || !programmingLanguageToDelete.getName().equals(programmingLanguage.getName())))
                 throw new Exception("Böyle bir kayıt bulunamadı.");
         }
     }
