@@ -1,13 +1,12 @@
 package kodlama.io.kodlamaiodevs.dataAccess.abstracts;
 
 import kodlama.io.kodlamaiodevs.entities.ProgrammingLanguage;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-public interface ProgrammingLanguageRepository {
-    void add(ProgrammingLanguage programmingLanguage) throws Exception;
+public interface ProgrammingLanguageRepository extends JpaRepository<ProgrammingLanguage, Integer> {
+    /*void add(ProgrammingLanguage programmingLanguage) throws Exception;
     void update(ProgrammingLanguage programmingLanguage) throws Exception;
     void delete(ProgrammingLanguage programmingLanguage) throws Exception;
     List<ProgrammingLanguage> getAll();
-    ProgrammingLanguage getById(int id) throws Exception;
+    ProgrammingLanguage getById(int id) throws Exception;*/
 }

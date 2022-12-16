@@ -15,7 +15,7 @@ public class ProgrammingLanguagesController {
     public ProgrammingLanguagesController(ProgrammingLanguageService programmingLanguageService){
         this.programmingLanguageService = programmingLanguageService;
     }
-    @PostMapping("add")
+    /*@PostMapping("add")
     public void add(ProgrammingLanguage programmingLanguage) throws Exception{
         programmingLanguageService.add(programmingLanguage);
     }
@@ -26,14 +26,14 @@ public class ProgrammingLanguagesController {
     @DeleteMapping("delete")
     public void delete(ProgrammingLanguage programmingLanguage) throws Exception{
         programmingLanguageService.delete(programmingLanguage);
-    }
+    }*/
     @GetMapping("getall")
     public List<ProgrammingLanguage> getAll(){
         return programmingLanguageService.getAll();
     }
-    @GetMapping("getbyid")
+    /*@GetMapping("getbyid")
     public ProgrammingLanguage getById(int id) throws Exception {
         return programmingLanguageService.getById(id);
-    }
+    }*/
 
 }

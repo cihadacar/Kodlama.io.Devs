@@ -16,32 +16,30 @@ public class ProgrammingLanguageManager implements ProgrammingLanguageService {
         this.programmingLanguageRepository = programmingLanguageRepository;
     }
 
-    @Override
-    public void add(ProgrammingLanguage programmingLanguage) throws Exception {
-        if(programmingLanguage.getName().equals(""))
-            throw new Exception("İsim boş geçilemez.");
-        programmingLanguageRepository.add(programmingLanguage);
-    }
-
-    @Override
-    public void update(ProgrammingLanguage programmingLanguage) throws Exception {
-        if(programmingLanguage.getName().equals(""))
-            throw new Exception("İsim boş geçilemez.");
-        programmingLanguageRepository.update(programmingLanguage);
-    }
-
-    @Override
-    public void delete(ProgrammingLanguage programmingLanguage) throws Exception {
-        programmingLanguageRepository.delete(programmingLanguage);
-    }
+//    @Override
+//    public void add(ProgrammingLanguage programmingLanguage) throws Exception {
+//        if(programmingLanguage.getName().equals(""))
+//            throw new Exception("İsim boş geçilemez.");
+//        programmingLanguageRepository.add(programmingLanguage);
+//    }
+//    @Override
+//    public void update(ProgrammingLanguage programmingLanguage) throws Exception {
+//        if(programmingLanguage.getName().equals(""))
+//            throw new Exception("İsim boş geçilemez.");
+//        programmingLanguageRepository.update(programmingLanguage);
+//    }
+//    @Override
+//    public void delete(ProgrammingLanguage programmingLanguage) throws Exception {
+//        programmingLanguageRepository.delete(programmingLanguage);
+//    }
 
     @Override
     public List<ProgrammingLanguage> getAll() {
-        return programmingLanguageRepository.getAll();
+        return programmingLanguageRepository.findAll();
     }
 
-    @Override
+    /*@Override
     public ProgrammingLanguage getById(int id) throws Exception {
         return programmingLanguageRepository.getById(id);
-    }
+    }*/
 }
