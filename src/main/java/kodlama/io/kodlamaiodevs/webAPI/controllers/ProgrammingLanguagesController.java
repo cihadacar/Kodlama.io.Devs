@@ -1,6 +1,8 @@
 package kodlama.io.kodlamaiodevs.webAPI.controllers;
 
 import kodlama.io.kodlamaiodevs.business.abstracts.ProgrammingLanguageService;
+import kodlama.io.kodlamaiodevs.business.request.CreateProgrammingLanguageRequest;
+import kodlama.io.kodlamaiodevs.business.response.GetAllProgrammingLanguagesResponse;
 import kodlama.io.kodlamaiodevs.entities.ProgrammingLanguage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,14 +28,18 @@ public class ProgrammingLanguagesController {
     @DeleteMapping("delete")
     public void delete(ProgrammingLanguage programmingLanguage) throws Exception{
         programmingLanguageService.delete(programmingLanguage);
-    }*/
-    @GetMapping("getall")
-    public List<ProgrammingLanguage> getAll(){
-        return programmingLanguageService.getAll();
     }
-    /*@GetMapping("getbyid")
+    @GetMapping("getbyid")
     public ProgrammingLanguage getById(int id) throws Exception {
         return programmingLanguageService.getById(id);
     }*/
+    @GetMapping("getall")
+    public List<GetAllProgrammingLanguagesResponse> getAll(){
+        return programmingLanguageService.getAll();
+    }
 
+    @PostMapping("add")
+    public void add(CreateProgrammingLanguageRequest createProgrammingLanguageRequest){
+        this.programmingLanguageService.add(createProgrammingLanguageRequest);
+    }
 }
