@@ -2,10 +2,11 @@ package kodlama.io.kodlamaiodevs.business.concretes;
 
 import kodlama.io.kodlamaiodevs.business.abstracts.ProgrammingLanguageService;
 import kodlama.io.kodlamaiodevs.business.request.CreateProgrammingLanguageRequest;
+import kodlama.io.kodlamaiodevs.business.request.UpdateProgrammingLanguageRequest;
 import kodlama.io.kodlamaiodevs.business.response.GetAllProgrammingLanguagesResponse;
+import kodlama.io.kodlamaiodevs.business.response.GetByIdProgrammingLanguageResponse;
 import kodlama.io.kodlamaiodevs.dataAccess.abstracts.ProgrammingLanguageRepository;
 import kodlama.io.kodlamaiodevs.entities.ProgrammingLanguage;
-import org.apache.catalina.webresources.CachedResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,30 +21,23 @@ public class ProgrammingLanguageManager implements ProgrammingLanguageService {
         this.programmingLanguageRepository = programmingLanguageRepository;
     }
 
-//    @Override
-//    public void add(ProgrammingLanguage programmingLanguage) throws Exception {
-//        if(programmingLanguage.getName().equals(""))
-//            throw new Exception("İsim boş geçilemez.");
-//        programmingLanguageRepository.add(programmingLanguage);
-//    }
-//    @Override
-//    public void update(ProgrammingLanguage programmingLanguage) throws Exception {
-//        if(programmingLanguage.getName().equals(""))
-//            throw new Exception("İsim boş geçilemez.");
-//        programmingLanguageRepository.update(programmingLanguage);
-//    }
-//    @Override
-//    public void delete(ProgrammingLanguage programmingLanguage) throws Exception {
-//        programmingLanguageRepository.delete(programmingLanguage);
-//    }
-
     @Override
     public void add(CreateProgrammingLanguageRequest createProgrammingLanguageRequest) {
         ProgrammingLanguage programmingLanguage = new ProgrammingLanguage();
         programmingLanguage.setName(createProgrammingLanguageRequest.getName());
         programmingLanguageRepository.save(programmingLanguage);
     }
-
+    @Override
+    public void update(UpdateProgrammingLanguageRequest updateProgrammingLanguageRequest) {
+        ProgrammingLanguage programmingLanguage = programmingLanguageRepository
+                .findById(updateProgrammingLanguageRequest.getId()).get();
+        programmingLanguage.setName(updateProgrammingLanguageRequest.getName());
+        programmingLanguageRepository.save(programmingLanguage);
+    }
+    @Override
+    public void delete(int id){
+        programmingLanguageRepository.deleteById(id);
+    }
     @Override
     public List<GetAllProgrammingLanguagesResponse> getAll() {
         List<ProgrammingLanguage> programmingLanguages = programmingLanguageRepository.findAll();
@@ -59,8 +53,11 @@ public class ProgrammingLanguageManager implements ProgrammingLanguageService {
         return programmingLanguagesResponses;
     }
 
-    /*@Override
-    public ProgrammingLanguage getById(int id) throws Exception {
-        return programmingLanguageRepository.getById(id);
-    }*/
+    @Override
+    public GetByIdProgrammingLanguageResponse getById(int id) {
+        ProgrammingLanguage programmingLanguage = programmingLanguageRepository.findById(id).get();
+        GetByIdProgrammingLanguageResponse programmingLanguageResponse = new GetByIdProgrammingLanguageResponse();
+        programmingLanguageResponse.setName(programmingLanguage.getName());
+        return programmingLanguageResponse;
+    }
 }

@@ -7,19 +7,17 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Table(name = "programming_languages")
+@Table(name = "sub_technologies")
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
-public class ProgrammingLanguage {
-
+@NoArgsConstructor
+@AllArgsConstructor
+public class SubTechnology {
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
     private int id;
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
-
 }
